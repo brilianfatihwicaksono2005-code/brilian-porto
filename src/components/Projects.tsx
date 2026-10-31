@@ -1,5 +1,6 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, ExternalLink } from "lucide-react";
 
@@ -101,13 +102,31 @@ function ProjectCard({
 }) {
   const reduceMotion = useReducedMotion();
 
+  function handleSpotlight(event: MouseEvent<HTMLElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      "--spotlight-x",
+      `${event.clientX - rect.left}px`,
+    );
+    event.currentTarget.style.setProperty(
+      "--spotlight-y",
+      `${event.clientY - rect.top}px`,
+    );
+  }
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.08 }}
-      className="group flex h-full flex-col rounded-xl border border-line bg-surface p-6 transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-muted/40 md:p-8"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      whileHover={
+        reduceMotion
+          ? undefined
+          : { y: -8, transition: { duration: 0.2 } }
+      }
+      onMouseMove={handleSpotlight}
+      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-muted/40 md:p-8"
     >
       <div className="mb-6 flex items-start justify-between gap-4">
         <h3 className="text-xl font-semibold tracking-tight text-foreground">
@@ -164,6 +183,15 @@ function ProjectCard({
           View Figma
         </a>
       ) : null}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(440px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(245, 245, 245, 0.07), transparent 45%)",
+        }}
+      />
     </motion.article>
   );
 }

@@ -123,9 +123,11 @@ export default function Contact() {
                   </a>
 
                   {isEmail ? (
-                    <button
+                    <motion.button
                       type="button"
                       onClick={copyEmail}
+                      whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+                      whileTap={reduceMotion ? undefined : { scale: 0.95 }}
                       aria-label={
                         isCopied ? "Email copied" : "Copy email address"
                       }
@@ -139,7 +141,7 @@ export default function Contact() {
                       <span className="hidden sm:inline">
                         {isCopied ? "Copied!" : "Copy"}
                       </span>
-                    </button>
+                    </motion.button>
                   ) : null}
                 </div>
               </li>

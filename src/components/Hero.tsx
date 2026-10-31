@@ -18,7 +18,7 @@ export default function Hero() {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
   };
 
@@ -26,9 +26,31 @@ export default function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-6xl items-center px-6 py-24"
+      className="relative flex min-h-[calc(100dvh-4rem)] w-full items-center overflow-hidden px-6 py-24"
     >
-      <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(163, 163, 163, 0.14) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+          maskImage:
+            "radial-gradient(ellipse 65% 55% at 50% 40%, black, transparent)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 65% 55% at 50% 40%, black, transparent)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(245, 245, 245, 0.07), transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <motion.div
           variants={container}
           initial="hidden"
@@ -39,7 +61,7 @@ export default function Hero() {
             variants={item}
             className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted"
           >
-            Software Engineer — Full-Stack Developer
+            Brilian Fatih Wicaksono — Software Engineer
           </motion.p>
 
           <motion.h1

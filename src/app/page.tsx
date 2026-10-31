@@ -2,6 +2,7 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
+import ParticleGlobe from "@/components/ParticleGlobe";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 
@@ -10,7 +11,7 @@ export default function Home() {
     <main className="min-h-dvh bg-canvas">
       <Navbar />
       <Hero />
-      <About />
+      <About visual={<ParticleGlobe />} />
       <Skills />
       <Projects />
       <Contact />

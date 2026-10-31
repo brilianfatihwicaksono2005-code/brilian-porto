@@ -1,6 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 
 const links = [
   { href: "#about", label: "About" },
@@ -9,12 +15,21 @@ const links = [
 ] as const;
 
 const sectionIds = links.map((link) => link.href.slice(1));
+const trackedIds = ["top", ...sectionIds];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  const progress = reduceMotion ? scrollYProgress : smoothProgress;
 
   useEffect(() => {
-    const sections = sectionIds
+    const sections = trackedIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
 
@@ -26,7 +41,9 @@ export default function Navbar() {
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-        if (visible) setActiveSection(visible.target.id);
+        if (visible) {
+          setActiveSection(visible.target.id === "top" ? "" : visible.target.id);
+        }
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
     );
@@ -71,6 +88,11 @@ export default function Navbar() {
           })}
         </ul>
       </nav>
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: progress }}
+        className="absolute inset-x-0 bottom-0 h-px origin-left bg-foreground/50"
+      />
     </header>
   );
 }

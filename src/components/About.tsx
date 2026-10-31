@@ -1,9 +1,10 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
-export default function About() {
+export default function About({ visual }: { visual?: ReactNode }) {
   const reduceMotion = useReducedMotion();
 
   const container: Variants = {
@@ -30,22 +31,32 @@ export default function About() {
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-6 md:grid-cols-12 md:gap-16">
         <motion.div
-          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{
+            opacity: 0,
+            y: reduceMotion ? 0 : 24,
+            scale: reduceMotion ? 1 : 0.97,
+          }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           className="md:col-span-5"
         >
-          <div className="group mx-auto max-w-sm rounded-2xl border border-line bg-surface p-2.5 transition-[transform,border-color] duration-500 hover:-rotate-1 hover:border-muted/40 md:max-w-none">
-            <Image
-              src="/foto.jpg"
-              alt="Brilian Fatih Wicaksono"
-              width={900}
-              height={1200}
-              sizes="(min-width: 768px) 40vw, 90vw"
-              className="aspect-[3/4] w-full rounded-xl object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
-            />
-          </div>
+          {visual ? (
+            <div className="mx-auto aspect-[3/4] w-full max-w-sm md:max-w-none">
+              {visual}
+            </div>
+          ) : (
+            <div className="group mx-auto max-w-sm rounded-2xl border border-line bg-surface p-2.5 transition-[transform,border-color] duration-500 hover:-rotate-1 hover:border-muted/40 md:max-w-none">
+              <Image
+                src="/foto.jpg"
+                alt="Brilian Fatih Wicaksono"
+                width={900}
+                height={1200}
+                sizes="(min-width: 768px) 40vw, 90vw"
+                className="aspect-[3/4] w-full rounded-xl object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+              />
+            </div>
+          )}
         </motion.div>
 
         <motion.div
