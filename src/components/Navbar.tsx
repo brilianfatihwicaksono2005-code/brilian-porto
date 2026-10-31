@@ -1,10 +1,41 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const links = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ] as const;
 
+const sectionIds = links.map((link) => link.href.slice(1));
+
 export default function Navbar() {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-line/60 bg-canvas/80 backdrop-blur-md">
       <nav
@@ -19,16 +50,25 @@ export default function Navbar() {
         </a>
 
         <ul className="flex items-center gap-5 sm:gap-8">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {links.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative rounded-sm text-sm transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:bg-foreground after:transition-opacity hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40 ${
+                    isActive
+                      ? "text-foreground after:opacity-100"
+                      : "text-muted after:opacity-0"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>
