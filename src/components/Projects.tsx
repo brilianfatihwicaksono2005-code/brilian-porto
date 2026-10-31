@@ -5,6 +5,7 @@ import { Check, ExternalLink } from "lucide-react";
 
 type Project = {
   title: string;
+  role: string;
   description: string;
   stack: string[];
   features: string[];
@@ -14,8 +15,9 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Enterprise Java Swing Online Shop",
+    role: "Software Engineer",
     description:
-      "Desktop store management and point-of-sale system built for transactional integrity at enterprise scale.",
+      "Architected an enterprise-level Point-of-Sale (POS) system ensuring zero data loss during operations by implementing strict ACID principles and DAO patterns.",
     stack: ["Java", "MySQL", "JDBC", "HikariCP"],
     features: [
       "ACID transactions for checkout integrity",
@@ -26,8 +28,9 @@ const projects: Project[] = [
   },
   {
     title: "Smartfarm Broiler IoT & Web Dashboard",
+    role: "UI/UX Designer & Frontend Developer",
     description:
-      "IoT platform for broiler farm operations, pairing real-time sensor telemetry with a multi-farm dashboard.",
+      "Developed a low-latency, real-time monitoring platform for multi-coop temperature and ammonia data visualization to optimize farming operations.",
     stack: ["Next.js", "REST API", "IoT"],
     features: [
       "Multi-kandang switcher",
@@ -39,8 +42,9 @@ const projects: Project[] = [
   },
   {
     title: "Borneo Alat Berat Mobile App",
+    role: "Mobile Developer",
     description:
-      "Cross-platform mobile application for heavy equipment management.",
+      "Built a cross-platform heavy equipment management application focusing on scalable architecture and efficient state management.",
     stack: ["Flutter", "Dart"],
     features: [
       "Responsive UI",
@@ -50,7 +54,9 @@ const projects: Project[] = [
   },
   {
     title: "Sistem Penjadwalan Pendadaran DTEDI",
-    description: "Interactive academic scheduling system prototype.",
+    role: "UI/UX Designer",
+    description:
+      "Designed an interactive academic scheduling prototype with a strong emphasis on user flow mapping, usability, and intuitive navigation.",
     stack: ["Figma", "UI/UX"],
     features: [
       "User flow mapping",
@@ -62,7 +68,9 @@ const projects: Project[] = [
   },
   {
     title: "Aplikasi Android Online Shop",
-    description: "Native Android e-commerce application.",
+    role: "Android Developer",
+    description:
+      "Developed a native Android e-commerce application featuring seamless product catalog browsing and structured lifecycle management.",
     stack: ["Java", "Android"],
     features: [
       "Product catalog",
@@ -72,7 +80,9 @@ const projects: Project[] = [
   },
   {
     title: "B’OLSHOP – Platform E-commerce",
-    description: "Full-stack online store website.",
+    role: "Full-Stack Developer",
+    description:
+      "Built a functional online store platform handling end-to-end product management, shopping cart operations, and secure CRUD functionalities.",
     stack: ["HTML", "CSS", "PHP"],
     features: [
       "Product management",
@@ -109,6 +119,10 @@ function ProjectCard({
       </div>
 
       <p className="mb-6 text-sm leading-relaxed text-muted">
+        <span className="font-semibold text-foreground">
+          Role: {project.role}
+        </span>
+        <br />
         {project.description}
       </p>
 

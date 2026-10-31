@@ -87,6 +87,10 @@ export default function About() {
                     Software Engineering Technology
                   </p>
                 </div>
+                <p className="mt-2 text-sm text-muted">
+                  <span className="font-medium text-foreground">IPK 3.70</span>{" "}
+                  / 4.00 — Semester 5
+                </p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   Focused on Computer Programming, Web Development, Data Science,
                   and Databases, aimed at building a professional career in
