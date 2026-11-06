@@ -2,7 +2,7 @@
 
 import type { MouseEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, ExternalLink } from "lucide-react";
+import { Check, ExternalLink, Github } from "lucide-react";
 
 type Project = {
   title: string;
@@ -11,6 +11,8 @@ type Project = {
   stack: string[];
   features: string[];
   figma?: string;
+  demo?: string;
+  repo?: string;
 };
 
 const projects: Project[] = [
@@ -38,6 +40,7 @@ const projects: Project[] = [
       "Real-time temperature monitoring",
       "Real-time ammonia monitoring",
     ],
+    demo: "https://smartbroiler.duckdns.org",
     figma:
       "https://www.figma.com/design/OkBDomOaNYC26j3JVTUFjG/smartfarm-broiler?node-id=0-1&p=f&t=2tVi4CzGsRnrDcB5-0",
   },
@@ -83,13 +86,16 @@ const projects: Project[] = [
     title: "B’OLSHOP – Platform E-commerce",
     role: "Full-Stack Developer",
     description:
-      "Built a functional online store platform handling end-to-end product management, shopping cart operations, and secure CRUD functionalities.",
-    stack: ["HTML", "CSS", "PHP"],
+      "Built a full-featured fashion e-commerce platform with product catalog, authentication, shopping cart, checkout, and a role-based admin dashboard.",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Zustand"],
     features: [
-      "Product management",
-      "Shopping cart",
-      "CRUD operations",
+      "Product catalog with search and category filters",
+      "Authentication with customer & admin roles",
+      "Shopping cart and checkout flow",
+      "Admin CRUD and inventory dashboard",
     ],
+    demo: "https://bolshop.vercel.app/",
+    repo: "https://github.com/brilianfatihwicaksono2005-code/BOLSHOP",
   },
 ];
 
@@ -172,17 +178,43 @@ function ProjectCard({
         ))}
       </ul>
 
-      {project.figma ? (
-        <a
-          href={project.figma}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-1.5 self-start rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40"
-        >
-          <ExternalLink aria-hidden="true" size={14} />
-          View Figma
-        </a>
-      ) : null}
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {project.demo ? (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40"
+          >
+            <ExternalLink aria-hidden="true" size={14} />
+            Live Demo
+          </a>
+        ) : null}
+
+        {project.repo ? (
+          <a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40"
+          >
+            <Github aria-hidden="true" size={14} />
+            Source Code
+          </a>
+        ) : null}
+
+        {project.figma ? (
+          <a
+            href={project.figma}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/40"
+          >
+            <ExternalLink aria-hidden="true" size={14} />
+            View Figma
+          </a>
+        ) : null}
+      </div>
 
       <div
         aria-hidden="true"
