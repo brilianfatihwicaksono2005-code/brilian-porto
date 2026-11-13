@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { Webhook } from "lucide-react";
+import { ScanEye, SquareDashedMousePointer, Webhook } from "lucide-react";
 import {
   SiDocker,
   SiGit,
@@ -47,6 +47,8 @@ const allSkills: Skill[] = [
   { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
   { name: "REST API", icon: Webhook, color: "#38BDF8" },
   { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "CVAT", icon: SquareDashedMousePointer, color: "#4361EE" },
+  { name: "Computer Vision", icon: ScanEye, color: "#22D3EE" },
   { name: "MySQL", icon: SiMysql, color: "#4479A1" },
   { name: "Git", icon: SiGit, color: "#F05032" },
   { name: "Docker", icon: SiDocker, color: "#2496ED" },

@@ -7,6 +7,7 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "#about", label: "About" },
@@ -86,6 +87,9 @@ export default function Navbar() {
               </li>
             );
           })}
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
       </nav>
       <motion.div

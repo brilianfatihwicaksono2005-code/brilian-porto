@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
+const EASE: [number, number, number, number] = [0.33, 1, 0.68, 1];
+
 export default function About({ visual }: { visual?: ReactNode }) {
   const reduceMotion = useReducedMotion();
 
@@ -34,11 +36,11 @@ export default function About({ visual }: { visual?: ReactNode }) {
           initial={{
             opacity: 0,
             y: reduceMotion ? 0 : 24,
-            scale: reduceMotion ? 1 : 0.97,
+            scale: reduceMotion ? 1 : 0.95,
           }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="md:col-span-5"
         >
           {visual ? (
@@ -46,14 +48,14 @@ export default function About({ visual }: { visual?: ReactNode }) {
               {visual}
             </div>
           ) : (
-            <div className="group mx-auto max-w-sm rounded-2xl border border-line bg-surface p-2.5 transition-[transform,border-color] duration-500 hover:-rotate-1 hover:border-muted/40 md:max-w-none">
+            <div className="group relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2rem] bg-black/[0.03] shadow-[0_25px_70px_-35px_rgba(245,158,11,0.5),0_20px_60px_-40px_rgba(244,63,94,0.45)] ring-1 ring-inset ring-black/5 transition-shadow duration-700 hover:shadow-[0_30px_85px_-30px_rgba(245,158,11,0.7),0_25px_75px_-35px_rgba(244,63,94,0.6)] md:max-w-none dark:bg-white/[0.04] dark:shadow-[0_25px_80px_-30px_rgba(245,158,11,0.4),0_20px_70px_-35px_rgba(244,63,94,0.42)] dark:ring-white/10 dark:hover:shadow-[0_30px_95px_-25px_rgba(245,158,11,0.6),0_25px_85px_-30px_rgba(244,63,94,0.6)]">
               <Image
                 src="/foto.jpg"
                 alt="Brilian Fatih Wicaksono"
                 width={900}
                 height={1200}
                 sizes="(min-width: 768px) 40vw, 90vw"
-                className="aspect-[3/4] w-full rounded-xl object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+                className="h-full w-full object-cover grayscale transition-[transform,filter] duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
               />
             </div>
           )}
@@ -85,69 +87,6 @@ export default function About({ visual }: { visual?: ReactNode }) {
             </p>
           </motion.div>
 
-          <motion.div variants={item} className="mt-12">
-            <h3 className="text-xl font-semibold text-foreground">Education</h3>
-            <div className="mt-6 flex flex-col gap-6">
-              <div>
-                <p className="text-sm text-muted">2024 – Present</p>
-                <div className="mt-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
-                  <h4 className="text-base font-medium text-foreground">
-                    Universitas Gadjah Mada
-                  </h4>
-                  <p className="text-sm text-muted">
-                    Software Engineering Technology
-                  </p>
-                </div>
-                <p className="mt-2 text-sm text-muted">
-                  <span className="font-medium text-foreground">IPK 3.70</span>{" "}
-                  / 4.00 — Semester 5
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  Focused on Computer Programming, Web Development, Data Science,
-                  and Databases, aimed at building a professional career in
-                  software engineering.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-sm text-muted">2021 – 2024</p>
-                <div className="mt-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
-                  <h4 className="text-base font-medium text-foreground">
-                    SMA Negeri 1 Demak
-                  </h4>
-                  <p className="text-sm text-muted">
-                    Mathematics and Natural Sciences (MIPA)
-                  </p>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  Focused on analytical and calculation-based subjects such as
-                  Mathematics, Physics, and Chemistry.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div variants={item} className="mt-12">
-            <h3 className="text-xl font-semibold text-foreground">
-              Organization Experience
-            </h3>
-            <div className="mt-6 flex flex-col gap-6">
-              <div>
-                <p className="text-sm text-muted">2024 – Present</p>
-                <h4 className="mt-1 text-base font-medium text-foreground">
-                  Imagamade (Ikatan Mahasiswa Gadjah Mada Demak)
-                </h4>
-                <p className="mt-1 text-sm font-medium text-foreground/90">
-                  Head of Interests and Talents Division
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  Responsible for designing and organizing various activities to
-                  facilitate and develop the interests and talents of UGM
-                  students from Demak.
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

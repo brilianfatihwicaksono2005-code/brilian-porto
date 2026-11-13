@@ -402,7 +402,7 @@ export default function ParticleGlobe() {
   return (
     <div
       ref={containerRef}
-      className="relative h-full min-h-[400px] w-full overflow-hidden rounded-2xl border border-line bg-surface"
+      className="group relative h-full min-h-[400px] w-full overflow-hidden rounded-[2rem] bg-black/[0.03] shadow-[0_25px_70px_-35px_rgba(245,158,11,0.5),0_20px_60px_-40px_rgba(244,63,94,0.45)] ring-1 ring-inset ring-black/5 transition-shadow duration-700 hover:shadow-[0_30px_85px_-30px_rgba(245,158,11,0.7),0_25px_75px_-35px_rgba(244,63,94,0.6)] dark:bg-white/[0.04] dark:shadow-[0_25px_80px_-30px_rgba(245,158,11,0.4),0_20px_70px_-35px_rgba(244,63,94,0.42)] dark:ring-white/10 dark:hover:shadow-[0_30px_95px_-25px_rgba(245,158,11,0.6),0_25px_85px_-30px_rgba(244,63,94,0.6)]"
     >
       <NextImage
         src={PHOTO_URL}
@@ -410,7 +410,9 @@ export default function ParticleGlobe() {
         fill
         unoptimized
         sizes="(min-width: 768px) 40vw, 90vw"
-        className={`object-cover ${status === "ready" ? "opacity-0" : ""}`}
+        className={`object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
+          status === "ready" ? "opacity-0" : ""
+        }`}
       />
 
       <canvas
@@ -418,14 +420,14 @@ export default function ParticleGlobe() {
         role="button"
         tabIndex={0}
         aria-label="Press and hold to form a particle globe from the portrait"
-        className={`absolute inset-0 block h-full w-full cursor-crosshair touch-none ${
+        className={`absolute inset-0 block h-full w-full cursor-crosshair touch-none transition-transform duration-700 ease-out group-hover:scale-105 ${
           status === "error" ? "hidden" : ""
         }`}
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-4 left-4 rounded-md border border-line bg-canvas/80 px-3 py-1.5 font-mono text-[11px] text-muted backdrop-blur-sm"
+        className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-black/40 px-4 py-2 text-xs text-white shadow-lg backdrop-blur-md"
       >
         {hint}
       </div>

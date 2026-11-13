@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import ChapterProvider from "@/components/ChapterProvider";
+import DynamicBackground from "@/components/DynamicBackground";
+import ChapterIndicator from "@/components/ChapterIndicator";
+import AudioPlayer from "@/components/AudioPlayer";
+import GlobalMouseGlow from "@/components/GlobalMouseGlow";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -66,13 +73,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <SmoothScroll>{children}</SmoothScroll>
+        <ThemeProvider>
+          <ChapterProvider>
+            <DynamicBackground />
+            <GlobalMouseGlow />
+            <SmoothScroll>
+              {children}
+              <ChapterIndicator />
+            </SmoothScroll>
+            <ScrollProgressBar />
+            <AudioPlayer />
+          </ChapterProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
